@@ -36,7 +36,7 @@ Order_Logs.prototype = {
 		}
 		else {
 			$.ajax({
-				url: '/arcitura.com/workshop_editor/ajax/get_logs/' + (item ? item : ''),
+				url: 'ajax/get_orders/' + (item ? item : ''),
 				crossDomain: true,
 				type: 'POST',
 				data: {
@@ -73,26 +73,9 @@ Order_Logs.prototype = {
 		
 		//Loop
 		for (var i in response) {
-			var date = new Date(response[i]['time'] * 1000);
+			//Put out list
 
-			//Sidebar
-			var m = date.getMonthString() + ' ' + date.getFullYear();
 
-			//Generate Block
-			var d = date.fjy() + ' (' + date.toLocaleTimeString() + ')';
-			var u = response[i]['admin'] ? 'User' : 'Admin';
-			var titles = [d,'ID' + response[i]['id'],u];
-			
-			var item = $('<div id="order_' + response[i]['id'] + '" class="cert_row" data-id="' + response[i]['id'] + '"><ul class="body"></ul>');
-			
-			$('ul',item)
-				.append('<li class="title"><h3>Arcitura.com</h3><span>' + titles.join('</span> &ndash; <span>') + '</span></li>')
-				.append('<li class="links"></li>')
-			$('li.links',item)
-				.append('<a class="sp sp_down" title="Download Registration Log" target="_blank" download="' + response[i]['file'] + '.html" href="ajax/get_log_pdf/' + response[i]['file'] + '?title=Arcitura.com (' + titles.join(' - ') + ')"></a>');
-				// .append('<a class="sp sp_prev" title="View Registration Log" href="' + response[i]['file'] + '"></a>');
-			
-			$('#order_list').append(item);
 		}
 		
 		if (!Obj.end) {
